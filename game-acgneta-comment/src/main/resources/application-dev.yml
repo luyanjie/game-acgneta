@@ -1,0 +1,11 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    game2element:
+      url: jdbc:mysql://192.168.40.6:3306/Game2Element?useSSL=false&serverTimezone=UTC
+      username: servergroup
+      password: tongbuserver
+      driverClassName: com.mysql.cj.jdbc.Driver
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
