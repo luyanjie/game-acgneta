@@ -29,6 +29,6 @@ public class IOSController {
 
         JSONObject jsonObject = commentService.comment(type,commentId);
 
-        return umengService.sendUnicast(type, commentId);
+        return umengService.sendUnicast(jsonObject);
     }
 }
