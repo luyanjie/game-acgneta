@@ -9,3 +9,6 @@ spring:
       driverClassName: com.mysql.cj.jdbc.Driver
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
+umeng:
+  ios:
+    mode: false

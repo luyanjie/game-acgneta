@@ -5,6 +5,8 @@ import com.tongbu.game.entity.UmengDeviceTokenEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author jokin
  * @date 2018/9/29 15:55
@@ -32,4 +34,12 @@ public class DeviceTokenService {
     {
         return mapper.findByUidAndToken(uid, deviceToken);
     }
+
+    /**
+     * 根据uid 获取信息
+     * */
+    public List<UmengDeviceTokenEntity> findByUid(int uid){
+        return mapper.findByUid(uid);
+    }
+
 }

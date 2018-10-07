@@ -1,5 +1,7 @@
 package com.tongbu.game.common.constant;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @author jokin
  * @date 2018/9/20 11:21
@@ -38,5 +40,13 @@ public class UmengConstant {
         public static final String APPKEY = "5b7bae78a40fa30b03000086";
         public static final String UMENG_MESSAGE_SECRET = "";
         public static final String APP_MASTER_SECRET = "qndw2kn5k3ahomjjhypykjroihuttns4";
+        /**
+         * 声音显示，这里使用默认的
+         * */
+        public static final String SOUND = "default";
     }
+
+    public static final String CUSTOMZIED_FIELD_CONTENT = "content";
+
+    public static final String CUSTOMZIED_FIELD_TYPE_SOURCE = "typeSource";
 }

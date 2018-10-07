@@ -3,6 +3,8 @@ package com.tongbu.game.dao;
 import com.tongbu.game.entity.UmengDeviceTokenEntity;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * @author jokin
  * @date 2018/9/29 15:46
@@ -19,4 +21,7 @@ public interface UmengDeviceTokenMapper {
     @Insert("INSERT INTO UmengDeviceToken(uid,deviceToken,appSource) VALUES(#{uid},#{deviceToken},#{appSource})")
     @Options(useGeneratedKeys = true,keyColumn = "id")
     int insert(UmengDeviceTokenEntity umengDeviceTokenEntity);
+
+    @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and status=1")
+    List<UmengDeviceTokenEntity> findByUid(@Param("uid") Integer uid);
 }

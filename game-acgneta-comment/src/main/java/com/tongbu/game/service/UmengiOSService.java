@@ -1,11 +1,17 @@
 package com.tongbu.game.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tongbu.game.common.UmengCustomized;
 import com.tongbu.game.common.constant.UmengConstant;
+import com.tongbu.game.dao.AnimationCommentsMapper;
+import com.tongbu.game.dao.UmengDeviceTokenMapper;
+import com.tongbu.game.entity.AnimationCommentsEntity;
 import com.tongbu.game.service.umeng.PushClient;
 import com.tongbu.game.service.umeng.ios.IOSUnicast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,35 +23,46 @@ public class UmengiOSService implements IUmengService {
 
     private static final Logger log = LoggerFactory.getLogger(UmengiOSService.class);
 
+    @Autowired
+    UmengDeviceTokenMapper mapper;
+
+
+    /**
+     * 设置iOS umeng 环境
+     * */
+    @Value("${umeng.ios.mode}")
+    private static boolean mode;
+
     @Override
-    public String sendUnicast(int type,int commentId) {
+    public String sendUnicast(JSONObject jsonObject) {
 
         try {
             IOSUnicast unicast = new IOSUnicast(UmengConstant.IOS.APPKEY, UmengConstant.IOS.APP_MASTER_SECRET);
             // TODO Set your device token
+
+
+
             unicast.setDeviceToken("a5e8266a23a90e44cb35b1e8505cc34a7039745d339fa494e09243dac7146fe4");
             // 屏幕弹出的内容
-            unicast.setAlert("hello world");
+            unicast.setAlert(String.valueOf(jsonObject.get("content")));
             unicast.setBadge(0);
+            // 描述信息，官方建议填写
             unicast.setDescription("hello world");
-            unicast.setSound("default");
+            unicast.setSound(UmengConstant.IOS.SOUND);
             // TODO set 'production_mode' to 'true' if your app is under production mode
-            // unicast.setTestMode();
-            // 设置为生成环境 测试一下
-            unicast.setProductionMode();
-            // Set customized fields
+            // 设置环境
+            if(mode){
+                unicast.setProductionMode();
+            }
+            else {
+                unicast.setTestMode();
+            }
+            // Set customized fields 额外信息
             // 内容
-            unicast.setCustomizedField("content", "hello world");
+            unicast.setCustomizedField(UmengConstant.CUSTOMZIED_FIELD_CONTENT, "hello world");
             // 跳转信息
-            JSONObject jsonObject = new JSONObject();
-            // 0：动画 1：捏报（咨询）
-            jsonObject.put("type",type);
-            // 动画或者捏报（咨询）id
-            jsonObject.put("id",1279);
-            // 当评论时的评论ID
-            jsonObject.put("commentId",commentId);
-            // {type:0,id:1,commentId:1}
-            unicast.setCustomizedField("typeSource",jsonObject);
+            unicast.setCustomizedField(UmengConstant.CUSTOMZIED_FIELD_TYPE_SOURCE,
+                    UmengCustomized.field(jsonObject.get("type"),jsonObject.get("id"),jsonObject.get("commentId")));
 
             //PushClient.send(unicast);
             return "success";
