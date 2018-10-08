@@ -12,7 +12,10 @@ import java.util.List;
 @Mapper
 public interface UmengDeviceTokenMapper {
 
-    @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and appSource=#{appSource} and status=1")
+    @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and status=1 order by insertTime desc limit 1")
+    UmengDeviceTokenEntity findByUidLaster(@Param("uid") Integer uid);
+
+    @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and appSource=#{appSource} and status=1 order by insertTime desc limit 1")
     UmengDeviceTokenEntity findByUidAndSource(@Param("uid") Integer uid,@Param("appSource") Integer appSource);
 
     @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and deviceToken=#{deviceToken} and status=1")
@@ -22,6 +25,6 @@ public interface UmengDeviceTokenMapper {
     @Options(useGeneratedKeys = true,keyColumn = "id")
     int insert(UmengDeviceTokenEntity umengDeviceTokenEntity);
 
-    @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and status=1")
+    @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and status=1 order by id desc")
     List<UmengDeviceTokenEntity> findByUid(@Param("uid") Integer uid);
 }

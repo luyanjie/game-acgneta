@@ -7,6 +7,7 @@ import com.tongbu.game.common.constant.UmengConstant;
 import com.tongbu.game.dao.AnimationCommentsMapper;
 import com.tongbu.game.dao.UmengDeviceTokenMapper;
 import com.tongbu.game.entity.AnimationCommentsEntity;
+import com.tongbu.game.entity.AnimationMessageEntity;
 import com.tongbu.game.entity.UmengDeviceTokenEntity;
 import com.tongbu.game.service.umeng.PushClient;
 import com.tongbu.game.service.umeng.ios.IOSUnicast;
@@ -26,10 +27,6 @@ import org.springframework.stereotype.Service;
 public class UmengiOSService implements IUmengService {
 
     private static final Logger log = LoggerFactory.getLogger(UmengiOSService.class);
-
-    @Autowired
-    UmengDeviceTokenMapper mapper;
-
     /**
      * 设置iOS umeng 环境
      */
@@ -37,26 +34,21 @@ public class UmengiOSService implements IUmengService {
     private static boolean mode;
 
     @Override
-    public String sendUnicast(JSONObject jsonObject) {
+    public String sendUnicast(AnimationMessageEntity message, String deviceToken) {
 
-        if (!jsonObject.containsKey("uid")) {
+        if (message.getToUid() <= 0) {
             return "no uid comments";
         }
-
         try {
             IOSUnicast unicast = new IOSUnicast(UmengConstant.IOS.APPKEY, UmengConstant.IOS.APP_MASTER_SECRET);
-            // TODO Set your device token
-            UmengDeviceTokenEntity umeng = mapper.findByUidAndSource((Integer) jsonObject.get("uid"), (Integer) jsonObject.get("source"));
-            if (umeng == null) {
-                return "no device token";
-            }
+
             //unicast.setDeviceToken("a5e8266a23a90e44cb35b1e8505cc34a7039745d339fa494e09243dac7146fe4");
-            unicast.setDeviceToken(umeng.getDeviceToken());
+            unicast.setDeviceToken(deviceToken);
             // 屏幕弹出的内容
-            unicast.setAlert(String.valueOf(jsonObject.get("content")));
+            unicast.setAlert(message.getTitle());
             unicast.setBadge(0);
             // 描述信息，官方建议填写
-            unicast.setDescription("hello world");
+            unicast.setDescription(message.getSource() == 2 ? "点赞" : "新的回复");
             unicast.setSound(UmengConstant.IOS.SOUND);
             // TODO set 'production_mode' to 'true' if your app is under production mode
             // 设置环境
@@ -67,10 +59,10 @@ public class UmengiOSService implements IUmengService {
             }
             // Set customized fields 额外信息
             // 内容
-            unicast.setCustomizedField(UmengConstant.CUSTOMZIED_FIELD_CONTENT, "hello world");
+            unicast.setCustomizedField(UmengConstant.CUSTOMZIED_FIELD_CONTENT, "");
             // 跳转信息
             unicast.setCustomizedField(UmengConstant.CUSTOMZIED_FIELD_TYPE_SOURCE,
-                    UmengCustomized.field((Integer) jsonObject.get("type"), (Integer) jsonObject.get("id"), (Integer) jsonObject.get("commentId")));
+                    UmengCustomized.field(message.getTypeSource(), message.getTypeId(), message.getCommentId()));
             // {"ret":"SUCCESS","data":{"msg_id":"uujt5gw153810170011200"}}
             String response = PushClient.send(unicast);
             return StringUtils.isEmpty(response)

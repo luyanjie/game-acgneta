@@ -65,4 +65,8 @@ public class AnimationMessageEntity {
      * 当 评论来源 source=2或者3时 此值--->{0：动画 1：咨询}
      * */
     private int typeSource;
+    /**
+     * 当 评论来源 source=2或者3时 此值对应typeSource的动画id或者咨询（捏报）id
+     * */
+    private int typeId;
 }
