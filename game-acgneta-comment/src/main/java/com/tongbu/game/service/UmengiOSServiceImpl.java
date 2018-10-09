@@ -1,8 +1,12 @@
 package com.tongbu.game.service;
 
 import com.tongbu.game.common.UmengCustomized;
+import com.tongbu.game.common.constant.ResponseCodeEnum;
 import com.tongbu.game.common.constant.UmengConstant;
+import com.tongbu.game.common.exception.ExceptionUtil;
+import com.tongbu.game.common.exception.ServiceException;
 import com.tongbu.game.entity.AnimationMessageEntity;
+import com.tongbu.game.entity.MessageResponse;
 import com.tongbu.game.service.umeng.PushClient;
 import com.tongbu.game.service.umeng.ios.IOSUnicast;
 import org.slf4j.Logger;
@@ -29,8 +33,12 @@ public class UmengiOSServiceImpl implements IUmengService {
     @Override
     public void sendUnicast(AnimationMessageEntity message, String deviceToken) {
 
+        MessageResponse response = new MessageResponse<String>();
         if (message.getToUid() <= 0) {
             // "no uid comments"
+            response.setCode(ResponseCodeEnum.SYS_PARAM_NOT_RIGHT.getCode());
+            response.setCode(ResponseCodeEnum.SYS_PARAM_NOT_RIGHT.getMsg());
+            response.setMsg("no uid comments");
             return;
         }
         try {
@@ -58,12 +66,15 @@ public class UmengiOSServiceImpl implements IUmengService {
             unicast.setCustomizedField(UmengConstant.CUSTOMZIED_FIELD_TYPE_SOURCE,
                     UmengCustomized.field(message.getTypeSource(), message.getTypeId(), message.getCommentId()));
             // {"ret":"SUCCESS","data":{"msg_id":"uujt5gw153810170011200"}}
-            String response = PushClient.send(unicast);
-            /*return StringUtils.isEmpty(response)
+            String responseContent = PushClient.send(unicast);
+            /*return StringUtils.isEmpty(responseContent)
                     ? "fail"
-                    : String.valueOf(JSON.parseObject(response).get("ret"));*/
+                    : String.valueOf(JSON.parseObject(responseContent).get("ret"));*/
         } catch (Exception e) {
             log.error("iOS sendUnicast", e);
+            ServiceException serviceException = (ServiceException) ExceptionUtil.handlerException4biz(e);
+            response.setCode(serviceException.getErrorCode());
+            response.setMsg(serviceException.getErrorMessage());
         }
     }
 }
