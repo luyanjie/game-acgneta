@@ -10,7 +10,7 @@ export JRE_HOME=$JAVA_HOME/jre
 APP_NAME=acgneta-comments
 
 SERVICE_DIR=/data/www/$APP_NAME
-SERVICE_NAME=game-acgneta-comment-1.0-SNAPSHOT
+SERVICE_NAME=game-acgneta-comment-1.0
 JAR_NAME=$SERVICE_NAME\.jar
 
 PID=$SERVICE_NAME\.pid

@@ -175,9 +175,9 @@ public class Demo {
         // 生成环境：d13e32224b33fdca27e7789746f553d2c6ee40f464dfdc9b9d131a9e7e27711b
         unicast.setDeviceToken("4a26435da1ac21d05b6cb3f6e5c3410e3f5f8156fb69a90d75f439336b20dfe9");
         // 屏幕弹出的内容
-        unicast.setAlert("hello world");
+        unicast.setAlert("赞了我的评论");
         unicast.setBadge(0);
-        unicast.setDescription("hello world");
+        unicast.setDescription("点赞");
         unicast.setSound("default");
         // TODO set 'production_mode' to 'true' if your app is under production mode
          unicast.setTestMode();
@@ -191,9 +191,9 @@ public class Demo {
         // 0：动画 1：捏报（咨询）
         jsonObject.put("type",0);
         // 动画或者捏报（咨询）id
-        jsonObject.put("id",1279);
+        jsonObject.put("id",556);
         // 当评论时的评论ID
-        jsonObject.put("commentId",2356);
+        jsonObject.put("commentId",437);
         // {type:0,id:1,commentId:1}
         unicast.setCustomizedField("typeSource",jsonObject);
         PushClient.send(unicast);

@@ -5,10 +5,11 @@
     <parent>
         <artifactId>game-acgneta</artifactId>
         <groupId>com.tongbu.game</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <version>1.0</version>
     <artifactId>game-acgneta-comment</artifactId>
 
     <name>game-acgneta-comment</name>
