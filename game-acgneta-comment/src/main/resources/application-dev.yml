@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     game2element:
-      url: jdbc:mysql://192.168.40.6:3306/Game2Element?useSSL=false&serverTimezone=UTC
+      url: jdbc:mysql://192.168.40.6:3306/Game2Element?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       username: servergroup
       password: tongbuserver
       driverClassName: com.mysql.cj.jdbc.Driver
