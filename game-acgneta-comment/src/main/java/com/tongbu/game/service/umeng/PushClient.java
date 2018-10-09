@@ -3,7 +3,6 @@ package com.tongbu.game.service.umeng;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tongbu.game.common.request.HttpClientUtils;
-import com.tongbu.game.service.UmengAndroidService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

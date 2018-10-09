@@ -8,5 +8,5 @@ import com.tongbu.game.entity.AnimationMessageEntity;
  * @date 2018/9/28 17:13
  */
 public interface IUmengService {
-    String sendUnicast(AnimationMessageEntity message,String deviceToken);
+    void sendUnicast(AnimationMessageEntity message,String deviceToken);
 }

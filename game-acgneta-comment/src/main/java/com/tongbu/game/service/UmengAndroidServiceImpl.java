@@ -1,16 +1,14 @@
 package com.tongbu.game.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.tongbu.game.common.UmengCustomized;
 import com.tongbu.game.common.constant.UmengConstant;
 import com.tongbu.game.entity.AnimationMessageEntity;
 import com.tongbu.game.service.umeng.AndroidNotification;
 import com.tongbu.game.service.umeng.PushClient;
 import com.tongbu.game.service.umeng.android.AndroidUnicast;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,11 +16,19 @@ import org.springframework.stereotype.Service;
  * @date 2018/9/28 17:12
  */
 @Service(value = "umengAndroidService")
-public class UmengAndroidService implements IUmengService
+public class UmengAndroidServiceImpl implements IUmengService
 {
-    private static final Logger log = LoggerFactory.getLogger(UmengAndroidService.class);
+    private static final Logger log = LoggerFactory.getLogger(UmengAndroidServiceImpl.class);
+
+    @Async
     @Override
-    public String sendUnicast(AnimationMessageEntity message, String deviceToken) {
+    public void sendUnicast(AnimationMessageEntity message, String deviceToken) {
+
+        if (message.getToUid() <= 0) {
+            // "no uid comments"
+            return;
+        }
+
         try {
             AndroidUnicast unicast = new AndroidUnicast(UmengConstant.IOS.APPKEY,UmengConstant.IOS.APP_MASTER_SECRET);
 
@@ -45,14 +51,13 @@ public class UmengAndroidService implements IUmengService
 
             // {"ret":"SUCCESS","data":{"msg_id":"uujt5gw153810170011200"}}
             String response = PushClient.send(unicast);
-            return StringUtils.isEmpty(response)
+           /* return StringUtils.isEmpty(response)
                     ? "fail"
-                    : String.valueOf(JSON.parseObject(response).get("ret"));
+                    : String.valueOf(JSON.parseObject(response).get("ret"));*/
 
         }
         catch (Exception e){
             log.error("android sendUnicast",e);
         }
-        return "fail";
     }
 }
