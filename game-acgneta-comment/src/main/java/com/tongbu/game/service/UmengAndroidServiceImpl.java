@@ -30,7 +30,7 @@ public class UmengAndroidServiceImpl implements IUmengService
         }
 
         try {
-            AndroidUnicast unicast = new AndroidUnicast(UmengConstant.IOS.APPKEY,UmengConstant.IOS.APP_MASTER_SECRET);
+            AndroidUnicast unicast = new AndroidUnicast(UmengConstant.Android.APPKEY,UmengConstant.Android.APP_MASTER_SECRET);
 
             // TODO Set your device token
             unicast.setDeviceToken(deviceToken);
