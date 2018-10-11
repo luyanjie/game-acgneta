@@ -64,7 +64,7 @@ public class UmengiOSServiceImpl implements IUmengService {
             unicast.setCustomizedField(UmengConstant.CUSTOMZIED_FIELD_CONTENT, "");
             // 跳转信息
             unicast.setCustomizedField(UmengConstant.CUSTOMZIED_FIELD_TYPE_SOURCE,
-                    UmengCustomized.field(message.getTypeSource(), message.getTypeId(), message.getCommentId()));
+                    UmengCustomized.field(message.getTypeSource(), message.getTypeId(), message.getCommentId(),message.getSource()));
             // {"ret":"SUCCESS","data":{"msg_id":"uujt5gw153810170011200"}}
             String responseContent = PushClient.send(unicast);
             /*return StringUtils.isEmpty(responseContent)

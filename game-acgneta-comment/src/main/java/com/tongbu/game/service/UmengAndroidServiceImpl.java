@@ -47,7 +47,7 @@ public class UmengAndroidServiceImpl implements IUmengService
             unicast.setExtraField(UmengConstant.CUSTOMZIED_FIELD_CONTENT, "");
             // 跳转信息
             unicast.setExtraField(UmengConstant.CUSTOMZIED_FIELD_TYPE_SOURCE,
-                    UmengCustomized.field(message.getTypeSource(), message.getTypeId(), message.getCommentId()));
+                    UmengCustomized.field(message.getTypeSource(), message.getTypeId(), message.getCommentId(),message.getSource()));
 
             // {"ret":"SUCCESS","data":{"msg_id":"uujt5gw153810170011200"}}
             String response = PushClient.send(unicast);
