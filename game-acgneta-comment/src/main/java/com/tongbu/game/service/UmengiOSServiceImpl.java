@@ -27,7 +27,7 @@ public class UmengiOSServiceImpl implements IUmengService {
      * 设置iOS umeng 环境
      */
     @Value("${umeng.ios.mode}")
-    private static boolean mode;
+    private boolean mode;
 
     @Async
     @Override

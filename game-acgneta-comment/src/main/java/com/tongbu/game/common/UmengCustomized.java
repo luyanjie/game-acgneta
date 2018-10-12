@@ -6,7 +6,7 @@ public class UmengCustomized {
     /**
      * Customized field
      * */
-    public static JSONObject field(int type,int id,int commentId)
+    public static JSONObject field(int type,int id,int commentId,int source)
     {
         // 跳转信息
         JSONObject jsonObject = new JSONObject();
@@ -16,7 +16,9 @@ public class UmengCustomized {
         jsonObject.put("id",id);
         // 当评论时的评论ID
         jsonObject.put("commentId",commentId);
-        // {type:0,id:1,commentId:1}
+        // 消息分类 1：系统通知 2：点赞 3：回复
+        jsonObject.put("source",source);
+        // {type:0,id:1,commentId:1,source:2}
         return jsonObject;
     }
 }
