@@ -49,13 +49,22 @@ public class UmengController {
         if (items == null || items.size() <= 0) {
             return "no device token";
         }
-        items.stream().limit(1).forEach(x -> {
+
+        items.stream().filter(x -> x.getAppSource() == 1).limit(1).forEach(item -> {
+            iosService.sendUnicast(message, item.getDeviceToken());
+        });
+
+        items.stream().filter(x -> x.getAppSource() == 2).limit(1).forEach(item -> {
+            umengAndroidService.sendUnicast(message, item.getDeviceToken());
+        });
+
+        /*items.stream().limit(1).forEach(x -> {
             if (x.getAppSource() == 1) {
                 iosService.sendUnicast(message, x.getDeviceToken());
             } else {
                 umengAndroidService.sendUnicast(message, x.getDeviceToken());
             }
-        });
+        });*/
         return "success";
     }
 }

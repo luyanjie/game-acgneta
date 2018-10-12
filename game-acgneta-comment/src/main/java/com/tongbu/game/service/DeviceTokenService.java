@@ -20,7 +20,7 @@ public class DeviceTokenService {
     public int insert(int uid, String deviceToken, int appSource) {
         UmengDeviceTokenEntity item = mapper.findByUidAndToken(uid, deviceToken);
         if (item != null && item.getId() > 0) {
-            return 0;
+            return mapper.update(item.getId());
         }
         item = new UmengDeviceTokenEntity(uid, deviceToken, appSource);
         int count = mapper.insert(item);

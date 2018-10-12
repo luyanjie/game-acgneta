@@ -25,6 +25,9 @@ public interface UmengDeviceTokenMapper {
     @Options(useGeneratedKeys = true,keyColumn = "id")
     int insert(UmengDeviceTokenEntity umengDeviceTokenEntity);
 
-    @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and status=1 order by id desc")
+    @Update("update UmengDeviceToken set updateTime=Now() where id=#{id}")
+    int update(@Param("id") Integer id);
+
+    @Select("SELECT * FROM UmengDeviceToken WHERE uid=#{uid} and status=1 order by updateTime desc")
     List<UmengDeviceTokenEntity> findByUid(@Param("uid") Integer uid);
 }
