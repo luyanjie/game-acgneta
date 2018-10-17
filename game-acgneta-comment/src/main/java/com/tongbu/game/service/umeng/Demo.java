@@ -2,6 +2,7 @@ package com.tongbu.game.service.umeng;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tongbu.game.common.HtmlRegexpUtil;
 import com.tongbu.game.common.constant.UmengConstant;
 import com.tongbu.game.service.umeng.android.*;
 import com.tongbu.game.service.umeng.ios.*;
@@ -173,9 +174,14 @@ public class Demo {
         IOSUnicast unicast = new IOSUnicast(appkey, appMasterSecret);
         // TODO Set your device token
         // 生成环境：d13e32224b33fdca27e7789746f553d2c6ee40f464dfdc9b9d131a9e7e27711b
-        unicast.setDeviceToken("4a26435da1ac21d05b6cb3f6e5c3410e3f5f8156fb69a90d75f439336b20dfe9");
+        unicast.setDeviceToken("80e601b158bc1dcffc37d0283782d55e5af967f9440c9b8fc73e2112feee90ed");
         // 屏幕弹出的内容
-        unicast.setAlert("赞了我的评论");
+        JSONObject jsonAlert = new JSONObject();
+        jsonAlert.put("title", "有小伙伴回复了你的评论(ง •_•)ง" );
+        jsonAlert.put("subtitle","");
+        jsonAlert.put("body", "我们都是好孩子.....");
+        unicast.setAlert(jsonAlert);
+        //unicast.setAlert("赞了我的评论");
         unicast.setBadge(0);
         unicast.setDescription("点赞");
         unicast.setSound("default");
@@ -263,7 +269,8 @@ public class Demo {
         Demo demo = new Demo(UmengConstant.IOS.APPKEY, UmengConstant.IOS.APP_MASTER_SECRET);
         //Demo demo = new Demo(UmengConstant.Android.APPKEY, UmengConstant.Android.APP_MASTER_SECRET);
         try {
-            demo.sendIOSUnicast();
+            //demo.sendIOSUnicast();
+
             //demo.sendAndroidUnicast();
 			/* TODO these methods are all available, just fill in some fields and do the test
 			 * demo.sendAndroidCustomizedcastFile();

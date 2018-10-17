@@ -74,7 +74,7 @@ public class IOSNotification extends UmengNotification {
         return true;
     }
 
-    public void setAlert(String token) throws Exception {
+    public void setAlert(Object token) throws Exception {
         setPredefinedKeyValue("alert", token);
     }
 

@@ -1,11 +1,13 @@
 package com.tongbu.game.service;
 
+import com.tongbu.game.common.HtmlRegexpUtil;
 import com.tongbu.game.common.UmengCustomized;
 import com.tongbu.game.common.constant.UmengConstant;
 import com.tongbu.game.entity.AnimationMessageEntity;
 import com.tongbu.game.service.umeng.AndroidNotification;
 import com.tongbu.game.service.umeng.PushClient;
 import com.tongbu.game.service.umeng.android.AndroidUnicast;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -16,8 +18,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/9/28 17:12
  */
 @Service(value = "umengAndroidService")
-public class UmengAndroidServiceImpl implements IUmengService
-{
+public class UmengAndroidServiceImpl implements IUmengService {
     private static final Logger log = LoggerFactory.getLogger(UmengAndroidServiceImpl.class);
 
     @Async
@@ -30,13 +31,13 @@ public class UmengAndroidServiceImpl implements IUmengService
         }
 
         try {
-            AndroidUnicast unicast = new AndroidUnicast(UmengConstant.Android.APPKEY,UmengConstant.Android.APP_MASTER_SECRET);
+            AndroidUnicast unicast = new AndroidUnicast(UmengConstant.Android.APPKEY, UmengConstant.Android.APP_MASTER_SECRET);
 
             // TODO Set your device token
             unicast.setDeviceToken(deviceToken);
             unicast.setTicker("Android unicast ticker");
-            unicast.setTitle(message.getTitle());
-            unicast.setText(message.getContent());
+            unicast.setTitle(message.getSource() == 3 ? "有小伙伴回复了你的评论(ง •_•)ง" : message.getTitle());
+            unicast.setText(HtmlRegexpUtil.filterHtml(message.getContent()));
             unicast.goAppAfterOpen();
             unicast.setDisplayType(AndroidNotification.DisplayType.NOTIFICATION);
             // TODO Set 'production_mode' to 'false' if it's a test device.
@@ -47,7 +48,7 @@ public class UmengAndroidServiceImpl implements IUmengService
             unicast.setExtraField(UmengConstant.CUSTOMZIED_FIELD_CONTENT, "");
             // 跳转信息
             unicast.setExtraField(UmengConstant.CUSTOMZIED_FIELD_TYPE_SOURCE,
-                    UmengCustomized.field(message.getTypeSource(), message.getTypeId(), message.getCommentId(),message.getSource()));
+                    UmengCustomized.field(message.getTypeSource(), message.getTypeId(), message.getCommentId(), message.getSource()));
 
             // {"ret":"SUCCESS","data":{"msg_id":"uujt5gw153810170011200"}}
             String response = PushClient.send(unicast);
@@ -55,9 +56,8 @@ public class UmengAndroidServiceImpl implements IUmengService
                     ? "fail"
                     : String.valueOf(JSON.parseObject(response).get("ret"));*/
 
-        }
-        catch (Exception e){
-            log.error("android sendUnicast",e);
+        } catch (Exception e) {
+            log.error("android sendUnicast", e);
         }
     }
 }

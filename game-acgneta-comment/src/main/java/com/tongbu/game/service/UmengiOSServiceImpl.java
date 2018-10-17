@@ -1,5 +1,7 @@
 package com.tongbu.game.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.tongbu.game.common.HtmlRegexpUtil;
 import com.tongbu.game.common.UmengCustomized;
 import com.tongbu.game.common.constant.ResponseCodeEnum;
 import com.tongbu.game.common.constant.UmengConstant;
@@ -46,8 +48,12 @@ public class UmengiOSServiceImpl implements IUmengService {
 
             //unicast.setDeviceToken("a5e8266a23a90e44cb35b1e8505cc34a7039745d339fa494e09243dac7146fe4");
             unicast.setDeviceToken(deviceToken);
-            // 屏幕弹出的内容
-            unicast.setAlert(message.getTitle());
+            // 屏幕弹出的内容(Alert 使用json格式，也可以直接使用字符串)
+            JSONObject jsonAlert = new JSONObject();
+            jsonAlert.put("title",message.getSource() == 3 ? "有小伙伴回复了你的评论(ง •_•)ง" : message.getTitle());
+            jsonAlert.put("subtitle","");
+            jsonAlert.put("body", HtmlRegexpUtil.filterHtml(message.getContent()));
+            unicast.setAlert(jsonAlert);
             unicast.setBadge(0);
             // 描述信息，官方建议填写
             unicast.setDescription(message.getSource() == 2 ? "点赞" : "新的回复");
