@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     game2element:
-      url: jdbc:mysql://113.107.160.15:3306/Game2Element?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      url: jdbc:mysql://192.168.1.16:3306/Game2Element?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       username: servergroup
       password: r3489nfawauiqw
       driverClassName: com.mysql.cj.jdbc.Driver
@@ -12,3 +12,5 @@ mybatis:
 umeng:
   ios:
     mode: true
+logging:
+  config: classpath:conf/logback-prod.xml

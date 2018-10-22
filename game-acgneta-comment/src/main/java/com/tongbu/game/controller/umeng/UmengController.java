@@ -40,9 +40,10 @@ public class UmengController {
     public String sendUnicast(int msgId) {
         // 获取消息内容
         AnimationMessageEntity message = messageService.findById(msgId);
-        if (message == null || message.getSource() < 2 || message.getSource() > 3) {
+        if (message == null || message.getId() <= 0) {
             return "no message send";
         }
+
         // 获取deviceToken
         // TODO Set your device token
         List<UmengDeviceTokenEntity> items = deviceTokenService.findByUid(message.getToUid());

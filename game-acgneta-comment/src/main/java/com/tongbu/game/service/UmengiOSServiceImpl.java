@@ -46,6 +46,7 @@ public class UmengiOSServiceImpl implements IUmengService {
         try {
             IOSUnicast unicast = new IOSUnicast(UmengConstant.IOS.APPKEY, UmengConstant.IOS.APP_MASTER_SECRET);
 
+
             //unicast.setDeviceToken("a5e8266a23a90e44cb35b1e8505cc34a7039745d339fa494e09243dac7146fe4");
             unicast.setDeviceToken(deviceToken);
             // 屏幕弹出的内容(Alert 使用json格式，也可以直接使用字符串)
