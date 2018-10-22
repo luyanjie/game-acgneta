@@ -7,7 +7,7 @@ import com.tongbu.game.entity.AnimationMessageEntity;
 import com.tongbu.game.service.umeng.AndroidNotification;
 import com.tongbu.game.service.umeng.PushClient;
 import com.tongbu.game.service.umeng.android.AndroidUnicast;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -36,8 +36,10 @@ public class UmengAndroidServiceImpl implements IUmengService {
             // TODO Set your device token
             unicast.setDeviceToken(deviceToken);
             unicast.setTicker("Android unicast ticker");
-            unicast.setTitle(message.getSource() == 3 ? "有小伙伴回复了你的评论(ง •_•)ง" : message.getTitle());
-            unicast.setText(HtmlRegexpUtil.filterHtml(message.getContent()));
+            unicast.setTitle(message.getSource() == 3
+                    ? "有小伙伴回复了你的评论(ง •_•)ง"
+                    : HtmlRegexpUtil.filterHtml(StringEscapeUtils.unescapeHtml4(message.getTitle())));
+            unicast.setText(HtmlRegexpUtil.filterHtml(StringEscapeUtils.unescapeHtml4(message.getContent())));
             unicast.goAppAfterOpen();
             unicast.setDisplayType(AndroidNotification.DisplayType.NOTIFICATION);
             // TODO Set 'production_mode' to 'false' if it's a test device.

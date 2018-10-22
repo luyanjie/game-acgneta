@@ -11,6 +11,7 @@ import com.tongbu.game.entity.AnimationMessageEntity;
 import com.tongbu.game.entity.MessageResponse;
 import com.tongbu.game.service.umeng.PushClient;
 import com.tongbu.game.service.umeng.ios.IOSUnicast;
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,9 +52,11 @@ public class UmengiOSServiceImpl implements IUmengService {
             unicast.setDeviceToken(deviceToken);
             // 屏幕弹出的内容(Alert 使用json格式，也可以直接使用字符串)
             JSONObject jsonAlert = new JSONObject();
-            jsonAlert.put("title",message.getSource() == 3 ? "有小伙伴回复了你的评论(ง •_•)ง" : message.getTitle());
+            jsonAlert.put("title",message.getSource() == 3
+                    ? "有小伙伴回复了你的评论(ง •_•)ง"
+                    : HtmlRegexpUtil.filterHtml(StringEscapeUtils.unescapeHtml4(message.getTitle())));
             jsonAlert.put("subtitle","");
-            jsonAlert.put("body", HtmlRegexpUtil.filterHtml(message.getContent()));
+            jsonAlert.put("body", HtmlRegexpUtil.filterHtml(StringEscapeUtils.unescapeHtml4(message.getContent())));
             unicast.setAlert(jsonAlert);
             unicast.setBadge(0);
             // 描述信息，官方建议填写
