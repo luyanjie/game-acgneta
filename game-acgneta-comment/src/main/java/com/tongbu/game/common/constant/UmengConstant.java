@@ -2,6 +2,8 @@ package com.tongbu.game.common.constant;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.HashMap;
+
 /**
  * @author jokin
  * @date 2018/9/20 11:21
@@ -49,4 +51,13 @@ public class UmengConstant {
     public static final String CUSTOMZIED_FIELD_CONTENT = "content";
 
     public static final String CUSTOMZIED_FIELD_TYPE_SOURCE = "typeSource";
+
+    public static final String TITLE = "source";
+    public static HashMap<String,String> UmengTitle = new HashMap<>();
+
+    static {
+        UmengTitle.put("source1","获得一个优评(ง •_•)ง");
+        UmengTitle.put("source2","有人赞了你的评论(ง •_•)ง");
+        UmengTitle.put("source3","有小伙伴回复了你的评论(ง •_•)ง");
+    }
 }

@@ -1,7 +1,10 @@
 package com.tongbu.game.service;
 
+import com.alibaba.fastjson.JSON;
 import com.tongbu.game.dao.AnimationMessageMapper;
 import com.tongbu.game.entity.AnimationMessageEntity;
+import com.tongbu.game.entity.MessageResponse;
+import com.tongbu.game.entity.Request.AnimationMessageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +20,15 @@ public class AnimationMessageService {
 
     public AnimationMessageEntity findById(int msgId)
     {
-        AnimationMessageEntity message = messageMapper.findById(msgId);
-        return message;
+        return messageMapper.findById(msgId);
+    }
+
+    public MessageResponse<String> insert(AnimationMessageRequest request)
+    {
+        System.out.println(JSON.toJSON(request));
+        int count =  messageMapper.insertMessage(request);
+        System.out.println(request.getId());
+
+        return new MessageResponse<>(count>0?"0":"1",count>0?"success":"fail","");
     }
 }

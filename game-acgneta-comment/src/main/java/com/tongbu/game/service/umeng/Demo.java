@@ -6,6 +6,7 @@ import com.tongbu.game.common.HtmlRegexpUtil;
 import com.tongbu.game.common.constant.UmengConstant;
 import com.tongbu.game.service.umeng.android.*;
 import com.tongbu.game.service.umeng.ios.*;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author jokin
@@ -269,6 +270,7 @@ public class Demo {
         Demo demo = new Demo(UmengConstant.IOS.APPKEY, UmengConstant.IOS.APP_MASTER_SECRET);
         //Demo demo = new Demo(UmengConstant.Android.APPKEY, UmengConstant.Android.APP_MASTER_SECRET);
         try {
+
             //demo.sendIOSUnicast();
 
             //demo.sendAndroidUnicast();
