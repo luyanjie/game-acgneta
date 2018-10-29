@@ -58,6 +58,7 @@ public class ApiInterceptors implements HandlerInterceptor {
         //请求log记录
         StringBuilder sb = new StringBuilder();
         //请求url
+        sb.append("ip:").append(request.getRemoteAddr()).append("\n");
         sb.append("url:").append(request.getRequestURI()).append("\n");
         //请求类型
         sb.append("method:").append(request.getMethod()).append("\n");
