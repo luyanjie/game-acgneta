@@ -1,5 +1,8 @@
 package com.tongbu.game.interceptor;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.tongbu.game.common.RequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -9,6 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Enumeration;
 
 /**
@@ -44,33 +51,14 @@ public class ApiInterceptors implements HandlerInterceptor {
 //                return false;
 //            }
 //        }
-        requestLog(request);
-
         // 记录开始时间
         long startTime = System.currentTimeMillis();
         request.setAttribute("startTime", startTime);
-
         //只有返回true才会继续向下执行，返回false取消当前请求
         return true;
     }
 
-    void requestLog(HttpServletRequest request) {
-        //请求log记录
-        StringBuilder sb = new StringBuilder();
-        //请求url
-        sb.append("ip:").append(request.getRemoteAddr()).append("\n");
-        sb.append("url:").append(request.getRequestURI()).append("\n");
-        //请求类型
-        sb.append("method:").append(request.getMethod()).append("\n");
-        sb.append("QueryString:").append(request.getQueryString()).append("\n");
-        Enumeration<String> paras = request.getParameterNames();
-        while (paras.hasMoreElements()) {
-            String name = paras.nextElement();
-            String value = request.getParameter(name);
-            sb.append(name).append(":").append(value).append("\n");
-        }
-        log.info(sb.toString());
-    }
+
 
     /**
      * 这个方法只会在当前这个Interceptor的preHandle方法返回值为true的时候才会执行。
@@ -91,6 +79,9 @@ public class ApiInterceptors implements HandlerInterceptor {
         if (handler instanceof HandlerMethod) {
             log.info("CostTime  : " + executeTime + "ms" + "\n");
         }
+        JSONObject json = new JSONObject();
+        RequestUtil.resources(request,json);
+        log.info(JSON.toJSONString(json));
     }
 
     /**

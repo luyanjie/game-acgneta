@@ -26,7 +26,6 @@ public class MessageController {
     @RequestMapping("/send")
     public MessageResponse send(AnimationMessageRequest request)
     {
-
         return service.insert(request);
     }
 }

@@ -1,6 +1,7 @@
 package com.tongbu.game.controller;
 
-import com.tongbu.game.entity.AnimationCommentsEntity;
+import com.tongbu.game.common.ResponseUtil;
+import com.tongbu.game.entity.MessageResponse;
 import com.tongbu.game.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +23,8 @@ public class CommentController {
      * @param id 评论id
      */
     @RequestMapping("/{id}")
-    public AnimationCommentsEntity detail(@PathVariable("id") Integer id)
+    public MessageResponse detail(@PathVariable("id") Integer id)
     {
-        return commentService.detail(id);
+        return ResponseUtil.success(commentService.detail(id));
     }
 }

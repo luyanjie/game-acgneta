@@ -1,6 +1,8 @@
 package com.tongbu.game.controller.umeng;
 
+import com.tongbu.game.common.ResponseUtil;
 import com.tongbu.game.entity.AnimationMessageEntity;
+import com.tongbu.game.entity.MessageResponse;
 import com.tongbu.game.entity.UmengDeviceTokenEntity;
 import com.tongbu.game.service.AnimationMessageService;
 import com.tongbu.game.service.DeviceTokenService;
@@ -37,18 +39,18 @@ public class UmengController {
 
 
     @RequestMapping("/send/unicast")
-    public String sendUnicast(int msgId) {
+    public MessageResponse sendUnicast(int msgId) {
         // 获取消息内容
         AnimationMessageEntity message = messageService.findById(msgId);
         if (message == null || message.getId() <= 0) {
-            return "no message send";
+            return ResponseUtil.success("no message send");
         }
 
         // 获取deviceToken
         // TODO Set your device token
         List<UmengDeviceTokenEntity> items = deviceTokenService.findByUid(message.getToUid());
         if (items == null || items.size() <= 0) {
-            return "no device token";
+            return ResponseUtil.success("no device token");
         }
 
         items.stream().filter(x -> x.getAppSource() == 1).limit(1).forEach(item -> {
@@ -66,6 +68,6 @@ public class UmengController {
                 umengAndroidService.sendUnicast(message, x.getDeviceToken());
             }
         });*/
-        return "success";
+        return ResponseUtil.success("success");
     }
 }

@@ -1,6 +1,7 @@
 package com.tongbu.game.controller;
 
-import com.tongbu.game.entity.UmengDeviceTokenEntity;
+import com.tongbu.game.common.ResponseUtil;
+import com.tongbu.game.entity.MessageResponse;
 import com.tongbu.game.service.DeviceTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +20,15 @@ public class DeviceTokenController {
     DeviceTokenService service;
 
     @RequestMapping("/find/one")
-    public UmengDeviceTokenEntity findByUidAndToken(int uid,String deviceToken)
+    public MessageResponse findByUidAndToken(int uid, String deviceToken)
     {
-        return service.findByUidAndToken(uid,deviceToken);
+        return ResponseUtil.success(service.findByUidAndToken(uid,deviceToken));
     }
 
     @RequestMapping("/insert")
-    public int insert(int uid,
+    public MessageResponse insert(int uid,
                       String deviceToken,
                       @RequestParam(value = "appSource",required = false,defaultValue = "1") int appSource){
-        return service.insert(uid,deviceToken,appSource);
+        return ResponseUtil.success(service.insert(uid,deviceToken,appSource));
     }
 }
