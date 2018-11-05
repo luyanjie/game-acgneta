@@ -39,6 +39,7 @@ public class UmengAndroidServiceImpl implements IUmengService {
             unicast.setTicker("Android unicast ticker");
             unicast.setTitle(UmengConstant.UmengTitle.get(StringUtils.join(UmengConstant.TITLE,String.valueOf(message.getSource()))));
             unicast.setText(HtmlRegexpUtil.filterHtml(StringEscapeUtils.unescapeHtml4(message.getContent())));
+            unicast.setIcon("R.drawable.ic_notify_logo");
             unicast.goAppAfterOpen();
             unicast.setDisplayType(AndroidNotification.DisplayType.NOTIFICATION);
             // TODO Set 'production_mode' to 'false' if it's a test device.

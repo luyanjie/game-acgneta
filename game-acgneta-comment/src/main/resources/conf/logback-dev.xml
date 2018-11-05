@@ -15,7 +15,7 @@
         <file>${LOG_HOME}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <fileNamePattern>${LOG_HOME}/info-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/info/info-%d{yyyy-MM-dd}.log</fileNamePattern>
             <!--日志文件保留天数-->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
@@ -39,7 +39,7 @@
 
         <file>${LOG_HOME}/warn.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/warn-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/warn/warn-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder charset="UTF-8">
@@ -62,7 +62,7 @@
         <!-- 按天回滚 daily -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志最大的历史 30天 -->
-            <fileNamePattern>${LOG_HOME}/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/error/error-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>

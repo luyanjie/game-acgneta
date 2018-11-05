@@ -32,6 +32,8 @@ public class UmengConstant {
          * App Master Secret
          * */
         public static final String APP_MASTER_SECRET = "8p0gawi9kjf5vnrrtcn2grsmhhbvndwe";
+
+        public static final String PUSH_ICON = "http://im5.acgneta.com/acgneta/umeng/push/ic_notify_logo.png";
     }
 
     public class IOS{
