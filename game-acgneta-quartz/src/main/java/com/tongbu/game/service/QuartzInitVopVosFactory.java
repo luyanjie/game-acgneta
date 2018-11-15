@@ -1,12 +1,13 @@
 package com.tongbu.game.service;
 
 import com.alibaba.fastjson.JSON;
+import com.tongbu.game.config.ApplicationContextProvider;
 import com.tongbu.game.entity.JobEntity;
 import com.tongbu.game.service.task.TaskService;
+import com.tongbu.game.service.task.act10107.Act10107ServiceImpl;
 import org.quartz.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
+import java.util.HashMap;
 
 
 /**
@@ -16,8 +17,11 @@ import java.math.BigDecimal;
 @DisallowConcurrentExecution
 public class QuartzInitVopVosFactory implements Job {
 
-    @Autowired
-    TaskService task;
+    private static final HashMap<String,TaskService> ACTIONS = new HashMap<>();
+
+    static {
+        add();
+    }
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -40,12 +44,14 @@ public class QuartzInitVopVosFactory implements Job {
         if (jobBean == null) {
             return;
         }
-        switch (jobBean.getJobName()) {
-            case "10107":
-                task.start(jobBean);
-                break;
-            default:
-                break;
-        }
+
+        TaskService task = ACTIONS.getOrDefault(jobBean.getJobName(),null);
+        if(task== null){return;}
+        task.start(jobBean);
+
+    }
+
+    private static void add(){
+        ACTIONS.put("10107", (Act10107ServiceImpl)ApplicationContextProvider.getBean(Act10107ServiceImpl.class));
     }
 }
