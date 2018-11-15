@@ -3,6 +3,7 @@ package com.tongbu.game.service.task.act10107;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tongbu.game.common.request.HttpClientUtils;
+import com.tongbu.game.config.ApplicationContextProvider;
 import com.tongbu.game.dao.VideoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -19,16 +20,14 @@ import java.util.Map;
  * @date 2018/11/14 14:23
  */
 @Slf4j
-@Service(value = "bilibili")
 public class BilibiliImpl implements UrlService {
 
     private static final String PAGE_URL = "https://api.bilibili.com/x/web-interface/view";
 
-    @Autowired
-    VideoMapper mapper;
+    private static VideoMapper mapper = (VideoMapper) ApplicationContextProvider.getBean("videoMapper") ;
 
     @Override
-    public void exec(int id, String url, int pageUrlId) {
+    public void execute(int id, String url, int pageUrlId) {
         try {
             Map<String, String> paramMap = new HashMap<>();
             paramMap.put("aid", String.valueOf(pageUrlId));
@@ -52,6 +51,10 @@ public class BilibiliImpl implements UrlService {
                 // 收藏量
                 int like = jsonStat.getIntValue("like");
 
+                if(mapper == null){
+                    System.out.println("mapper is null");
+                    return;
+                }
                 mapper.insert(id, url, title, view, danmaku, pubdate, DateFormatUtils.format(new Date(), "yyyy-MM-dd"), like);
             }
         } catch (Exception e) {
