@@ -9,6 +9,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ByteArrayEntity;
@@ -286,7 +287,7 @@ public class HttpClientUtils {
             SSLContext sslcontext = SSLContexts.custom().loadTrustMaterial(trustStore, new TrustSelfSignedStrategy()).build();
             // 只允许使用TLSv1协议
             SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext, new String[]{"TLSv1"}, null,
-                    SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+                    new DefaultHostnameVerifier());
             httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
             // 创建http请求(get方式)
             HttpGet httpget = new HttpGet("https://localhost:8443/myDemo/Ajax/serivceJ.action");

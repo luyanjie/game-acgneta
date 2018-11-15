@@ -20,8 +20,17 @@ public interface QuartzService {
 
     /**
      * 获取Job信息
+     * @param name 任务名称
+     * @param group 任务分组
      * */
     JobEntity getJobInfo(String name, String group) throws SchedulerException;
+
+    /**
+     * 判断任务是否存在
+     * @param name 任务名称
+     * @param group 任务分组
+     * */
+    boolean exists(String name,String group) throws SchedulerException;
 
     /**
      * 修改某个任务的执行时间
@@ -35,6 +44,8 @@ public interface QuartzService {
 
     /**
      * 暂定某个任务
+     * @param name 任务名称
+     * @param group 任务分组
      * */
     void pauseJob(String name, String group) throws SchedulerException;
 
@@ -45,11 +56,15 @@ public interface QuartzService {
 
     /**
      * 恢复某个指定任务
+     * @param name 任务名称
+     * @param group 任务分组
      */
     void resumeJob(String name, String group) throws SchedulerException;
 
     /**
      * 删除某个任务
+     * @param name 任务名称
+     * @param group 任务分组
      * */
     boolean deleteJob(String name, String group) throws SchedulerException;
 }

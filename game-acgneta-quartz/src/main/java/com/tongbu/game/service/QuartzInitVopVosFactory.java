@@ -13,6 +13,8 @@ import java.util.HashMap;
 /**
  * @author jokin
  * @date 2018/11/9 0009 0:01
+ * {@link DisallowConcurrentExecution} :保证上一次任务执行完毕，再执行下一次任务
+ * 在任务类上注解@DisallowConcurrentExecution，比如此任务需耗时7秒，却配置5秒执行一次，注解后将会7秒才运行一次：
  */
 @DisallowConcurrentExecution
 public class QuartzInitVopVosFactory implements Job {
