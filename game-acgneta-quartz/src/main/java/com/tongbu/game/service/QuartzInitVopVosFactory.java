@@ -5,7 +5,10 @@ import com.tongbu.game.config.ApplicationContextProvider;
 import com.tongbu.game.entity.JobEntity;
 import com.tongbu.game.service.task.TaskService;
 import com.tongbu.game.service.task.act10107.Act10107ServiceImpl;
+
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.HashMap;
 
@@ -17,9 +20,13 @@ import java.util.HashMap;
  * 在任务类上注解@DisallowConcurrentExecution，比如此任务需耗时7秒，却配置5秒执行一次，注解后将会7秒才运行一次：
  */
 @DisallowConcurrentExecution
+@Slf4j
 public class QuartzInitVopVosFactory implements Job {
 
-    private static final HashMap<String,TaskService> ACTIONS = new HashMap<>();
+    private static final HashMap<String, TaskService> ACTIONS = new HashMap<>();
+
+    @Value("${quartz.group}")
+    private String group;
 
     static {
         add();
@@ -40,20 +47,14 @@ public class QuartzInitVopVosFactory implements Job {
         System.out.println("name :"+jobKey.getName() + " group:"+jobKey.getGroup());*/
 
         JobEntity jobBean = (JobEntity) context.getMergedJobDataMap().get("job");
-
-        System.out.println(JSON.toJSONString(jobBean));
-
-        if (jobBean == null) {
+        if (jobBean == null || !jobBean.getJobName().equals(group)) {
             return;
         }
-
-        TaskService task = ACTIONS.getOrDefault(jobBean.getJobName(),null);
-        if(task== null){return;}
+        TaskService task = ACTIONS.getOrDefault(jobBean.getJobName(), (job) -> log.warn("class is not exists; data:{}", JSON.toJSONString(job)));
         task.start(jobBean);
-
     }
 
-    private static void add(){
-        ACTIONS.put("10107", (Act10107ServiceImpl)ApplicationContextProvider.getBean(Act10107ServiceImpl.class));
+    private static void add() {
+        ACTIONS.put("10107", ApplicationContextProvider.getBeanClass(Act10107ServiceImpl.class));
     }
 }

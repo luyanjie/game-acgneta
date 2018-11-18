@@ -20,3 +20,5 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
 logging:
   config: classpath:log/logback-prod.xml
+quartz:
+  group: acgneta # 设置当前任务执行分组

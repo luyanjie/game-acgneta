@@ -26,6 +26,7 @@ import java.util.Properties;
 @Configuration
 @EnableScheduling
 public class QuartzConfiguration {
+
     /**
      * 继承org.springframework.scheduling.quartz.SpringBeanJobFactory
      * 实现任务实例化方式
