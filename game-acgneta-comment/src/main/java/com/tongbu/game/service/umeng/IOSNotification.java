@@ -14,11 +14,11 @@ public class IOSNotification extends UmengNotification {
     /**
      * Keys can be set in the aps level
      * */
-    protected static final HashSet<String> APS_KEYS = new HashSet<>(Arrays.asList("alert", "badge", "sound", "content-available"));
+    private static final HashSet<String> APS_KEYS = new HashSet<>(Arrays.asList("alert", "badge", "sound", "content-available"));
 
     @Override
     public boolean setPredefinedKeyValue(String key, Object value) throws Exception {
-        if(ROOT_KEYS.contains(key)){
+        if(getRootKeys().contains(key)){
             rootJson.put(key,value);
         }
         else if(APS_KEYS.contains(key)){
@@ -40,7 +40,7 @@ public class IOSNotification extends UmengNotification {
             }
             apsJson.put(key, value);
         }
-        else if(POLICY_KEYS.contains(key)){
+        else if(getPolicyKeys().contains(key)){
             // This key should be in the body level
             JSONObject policyJson = null;
             if (rootJson.containsKey("policy")) {
@@ -51,7 +51,7 @@ public class IOSNotification extends UmengNotification {
             }
             policyJson.put(key, value);
         }else {
-            if (key == "payload" || key == "aps" || key == "policy") {
+            if (key.equals("payload") || key.equals("aps") || key.equals("policy")) {
                 throw new Exception("You don't need to set value for " + key + " , just set values for the sub keys in it.");
             } else {
                 throw new Exception("Unknownd key: " + key);

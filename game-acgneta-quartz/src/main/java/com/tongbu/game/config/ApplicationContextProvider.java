@@ -47,7 +47,6 @@ public class ApplicationContextProvider implements ApplicationContextAware {
     public static <T> T getBeanClass(Class<T> clazz){
         return getApplicationContext().getBean(clazz);
     }
-
     /**
      * 通过name,以及Clazz返回指定的Bean
      * */

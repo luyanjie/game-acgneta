@@ -1,20 +1,13 @@
 package com.tongbu.game.controller;
 
-import com.tongbu.game.common.ResponseUtil;
-import com.tongbu.game.entity.MessageResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.StreamUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import vip.xinba.core.ResponseUtil;
+import vip.xinba.core.entity.MessageResponse;
 
 /**
  * @author jokin
@@ -25,6 +18,9 @@ public class HelloWorldController {
 
     private static final Logger log = LoggerFactory.getLogger(HelloWorldController.class);
 
+//    @Autowired
+//    DynamicOutputService dynamic;
+
     @RequestMapping("/")
     public MessageResponse start() {
         return ResponseUtil.success("are you ok?");
@@ -34,6 +30,8 @@ public class HelloWorldController {
     public MessageResponse hello() {
         log.info("hello info");
         log.warn("hello warn");
+
+
         log.error("hello error");
         return ResponseUtil.success("hello world!");
     }
@@ -42,4 +40,20 @@ public class HelloWorldController {
     public MessageResponse currentTime() {
         return ResponseUtil.success(System.currentTimeMillis());
     }
+
+
+//    @RequestMapping("/send")
+//    public MessageResponse send() {
+//        for (int i = 0; i < 10; i++) {
+//
+//            try {
+//                Thread.sleep(5 * 100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//            dynamic.sendMessage(1000318 + ":" + i);
+//        }
+//        return ResponseUtil.success(true);
+//    }
 }

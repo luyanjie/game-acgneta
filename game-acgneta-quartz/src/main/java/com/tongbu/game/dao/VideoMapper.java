@@ -1,6 +1,6 @@
 package com.tongbu.game.dao;
 
-import com.tongbu.game.entity.task.Act10107UrlEntity;
+import com.tongbu.game.entity.task.act10107.Act10107UrlEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

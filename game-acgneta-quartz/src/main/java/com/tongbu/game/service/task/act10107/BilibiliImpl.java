@@ -2,12 +2,12 @@ package com.tongbu.game.service.task.act10107;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.tongbu.game.common.request.HttpClientUtils;
 import com.tongbu.game.config.ApplicationContextProvider;
 import com.tongbu.game.dao.VideoMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import vip.xinba.core.request.HttpClientUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -22,14 +22,14 @@ public class BilibiliImpl implements UrlService {
 
     private static final String PAGE_URL = "https://api.bilibili.com/x/web-interface/view";
 
-    private static VideoMapper mapper = (VideoMapper) ApplicationContextProvider.getBean("videoMapper") ;
+    private static VideoMapper mapper = (VideoMapper) ApplicationContextProvider.getBean("videoMapper");
 
     @Override
     public void execute(int id, String url, int pageUrlId) {
         try {
-            Map<String, String> paramMap = new HashMap<>();
+            Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("aid", String.valueOf(pageUrlId));
-            String response = HttpClientUtils.get(PAGE_URL, paramMap, null);
+            String response = HttpClientUtils.get(PAGE_URL, paramMap);
             if (!StringUtils.isNoneEmpty(response)) {
                 return;
             }
@@ -49,7 +49,7 @@ public class BilibiliImpl implements UrlService {
                 // 收藏量
                 int like = jsonStat.getIntValue("like");
 
-                if(mapper == null){
+                if (mapper == null) {
                     System.out.println("mapper is null");
                     return;
                 }

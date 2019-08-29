@@ -1,10 +1,11 @@
 package com.tongbu.game.service.task.act10107;
 
+import com.tongbu.game.common.TaskHandlerType;
 import com.tongbu.game.common.enums.UrlEnum;
 import com.tongbu.game.dao.VideoMapper;
 import com.tongbu.game.entity.JobEntity;
-import com.tongbu.game.entity.task.Act10107UrlEntity;
-import com.tongbu.game.service.task.TaskService;
+import com.tongbu.game.entity.task.act10107.Act10107UrlEntity;
+import com.tongbu.game.service.handler.AbstractHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ import java.util.List;
  * @date 2018/11/14 14:03
  */
 @Service
-public class Act10107ServiceImpl implements TaskService {
+@TaskHandlerType("10107")
+public class Act10107ServiceImpl extends AbstractHandler {
 
     @Autowired
     VideoMapper videoMapper;

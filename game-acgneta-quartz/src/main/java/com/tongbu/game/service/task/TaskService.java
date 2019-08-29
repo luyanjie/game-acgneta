@@ -7,9 +7,6 @@ import com.tongbu.game.entity.JobEntity;
  * @date 2018/11/14 14:02
  */
 public interface TaskService {
-    /**
-     * 项目启动
-     * @param job 执行工作
-     * */
-    void start(JobEntity job);
+    default void start(JobEntity job){}
+    default void execute(){}
 }

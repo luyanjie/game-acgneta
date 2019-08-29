@@ -31,4 +31,9 @@ public class JobEntity implements Serializable {
      * 任务描述
      * */
     private String description;
+
+    /**
+     * 执行指定的jar包文件
+     */
+    //private String path;
 }

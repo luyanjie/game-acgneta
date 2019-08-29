@@ -2,11 +2,8 @@ package com.tongbu.game.service.umeng;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.tongbu.game.common.HtmlRegexpUtil;
-import com.tongbu.game.common.constant.UmengConstant;
 import com.tongbu.game.service.umeng.android.*;
 import com.tongbu.game.service.umeng.ios.*;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author jokin
@@ -15,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Demo {
     private String appkey = null;
     private String appMasterSecret = null;
-    private String timestamp = null;
+   // private String timestamp = null;
 
     public Demo(String key, String secret) {
         try {
@@ -23,7 +20,6 @@ public class Demo {
             appMasterSecret = secret;
         } catch (Exception e) {
             e.printStackTrace();
-            System.exit(1);
         }
     }
 
@@ -267,7 +263,7 @@ public class Demo {
 
     public static void main(String[] args) {
         // TODO set your appkey and master secret here
-        Demo demo = new Demo(UmengConstant.IOS.APPKEY, UmengConstant.IOS.APP_MASTER_SECRET);
+        //Demo demo = new Demo(UmengConstant.IOS.APPKEY, UmengConstant.IOS.APP_MASTER_SECRET);
         //Demo demo = new Demo(UmengConstant.Android.APPKEY, UmengConstant.Android.APP_MASTER_SECRET);
         try {
 

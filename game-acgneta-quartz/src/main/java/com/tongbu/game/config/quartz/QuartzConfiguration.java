@@ -5,7 +5,6 @@ import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +15,6 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.util.Properties;
 
 /**
  * @author jokin
@@ -26,7 +23,6 @@ import java.util.Properties;
 @Configuration
 @EnableScheduling
 public class QuartzConfiguration {
-
     /**
      * 继承org.springframework.scheduling.quartz.SpringBeanJobFactory
      * 实现任务实例化方式
@@ -103,32 +99,6 @@ public class QuartzConfiguration {
         schedulerFactoryBean.setApplicationContextSchedulerContextKey("applicationContext");
         //设置配置文件位置
         schedulerFactoryBean.setConfigLocation(new ClassPathResource("/quartz.properties"));
-        /*
-        设置配置文件位置(与上面的方法效果一样)
-        schedulerFactoryBean.setQuartzProperties(quartzProperties());
-        * */
-
         return schedulerFactoryBean;
-    }
-
-    /*public Properties quartzProperties() throws IOException{
-        Properties properties = new Properties();
-        try {
-            properties.load(this.getClass().getClassLoader().getResourceAsStream("quartz.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return properties;
-    }*/
-
-    /**
-     * 从quartz.properties文件中读取Quartz配置属性
-     * */
-    @Bean
-    public Properties quartzProperties() throws IOException {
-        PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
-        propertiesFactoryBean.setLocation(new ClassPathResource("/quartz.properties"));
-        propertiesFactoryBean.afterPropertiesSet();
-        return propertiesFactoryBean.getObject();
     }
 }

@@ -1,12 +1,11 @@
 package com.tongbu.game.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.tongbu.game.entity.MessageResponse;
 import com.tongbu.game.entity.Request.AnimationMessageRequest;
 import com.tongbu.game.service.AnimationMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vip.xinba.core.entity.MessageResponse;
 
 /**
  * @author jokin

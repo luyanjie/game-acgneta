@@ -8,7 +8,12 @@ spring:
       password: tongbuserver
       driverClassName: com.mysql.cj.jdbc.Driver
     game2element:
-      url: jdbc:mysql://192.168.40.6:3306/Game2Element?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      url: jdbc:mysql://192.168.40.6:3306/Game2Element?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowMultiQueries=true
+      username: servergroup
+      password: tongbuserver
+      driverClassName: com.mysql.cj.jdbc.Driver
+    itunesdb:
+      url: jdbc:mysql://192.168.40.6:3306/iTunesDB?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       username: servergroup
       password: tongbuserver
       driverClassName: com.mysql.cj.jdbc.Driver
@@ -20,5 +25,6 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
 logging:
   config: classpath:log/logback-dev.xml
-quartz:
-  group: acgneta # 设置当前任务执行分组
+message:
+  send:
+    url: http://192.168.40.141:15203

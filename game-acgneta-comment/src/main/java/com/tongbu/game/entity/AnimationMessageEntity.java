@@ -58,7 +58,7 @@ public class AnimationMessageEntity {
      */
     private int rewardScore;
     /**
-     * 系统消息等级 0：最低级别（小于0 在app 中不显示）
+     * 系统消息等级 0：最低级别（小于0 在app 中不显示） 2: 后台操作
      * */
     private int grade;
     /**
@@ -67,6 +67,17 @@ public class AnimationMessageEntity {
     private int typeSource;
     /**
      * 当 评论来源 source=2或者3时 此值对应typeSource的动画id或者咨询（捏报）id
+     * 当source=1，grade =3时为追番有更新的系统消息，typeId 为动画id
      * */
     private int typeId;
+
+    /**
+     * 消息跳转模块 0：动画页面 1：捏报（咨询）页面 2：消息页面
+     * */
+    private int pushModule;
+
+    /**
+     * 客户端消息展示方式  1:正常回复评论模式  2:回答提问的模式
+     */
+    private int showModule;
 }

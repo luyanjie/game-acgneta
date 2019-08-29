@@ -10,11 +10,11 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
     protected Object determineCurrentLookupKey() {
-        // logger.info("数据源为{}",JdbcContextHolder.getDataSource());
-        return JdbcContextHolder.getDataSource();
+        log.info("数据源为{}",JdbcContextHolder.get());
+        return JdbcContextHolder.get();
     }
 }

@@ -9,14 +9,28 @@ import com.tongbu.game.common.enums.DataSourceType;
  * 动态数据源的上下文
  */
 public class JdbcContextHolder {
-    private final static ThreadLocal<String> local = new ThreadLocal<>();
+    private final static ThreadLocal<String> LOCAL = new ThreadLocal<>();
 
-    public static void putDataSource(String name) {
-        local.set(name);
+    /**
+     * 设置当前数据源
+     * */
+    public static void set(String name) {
+        LOCAL.set(name);
     }
 
-    public static String getDataSource() {
-        String dbName = local.get();
+    /**
+     * 获取当前使用的数据源
+     * */
+    public static String get() {
+        String dbName = LOCAL.get();
         return dbName != null ? dbName : DataSourceType.Master.getName();
     }
+
+    /**
+     * 清除当前数据源
+     */
+    public static void clear() {
+        LOCAL.remove();
+    }
+
 }

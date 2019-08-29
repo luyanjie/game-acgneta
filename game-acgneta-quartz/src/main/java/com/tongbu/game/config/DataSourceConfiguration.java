@@ -35,6 +35,12 @@ public class DataSourceConfiguration {
         return new DataSourceEntity();
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource.itunesdb")
+    public DataSourceEntity dataSourceiTunes() {
+        return new DataSourceEntity();
+    }
+
     /**
      * 配置为默认库
      */
@@ -54,6 +60,15 @@ public class DataSourceConfiguration {
     }
 
     /**
+     * iTunesDb
+     */
+    @Bean(name = "iTunes")
+    public DataSource iTunesDataSource() {
+        DataSourceEntity sourceEntity = dataSourceiTunes();
+        return druidDataSource(sourceEntity.getUrl(), sourceEntity.getUsername(), sourceEntity.getPassword(), sourceEntity.getDriverClassName());
+    }
+
+    /**
      * \@Primary和@Qualifier这两个注解的意思:
      * \@Primary：  意思是在众多相同的bean中，优先使用@Primary注解的bean.
      * \@Qualifier ： 这个注解则指定某个bean有没有资格进行注入。
@@ -64,18 +79,17 @@ public class DataSourceConfiguration {
     public DataSource dataSource() {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
         DataSource master = primaryDataSource();
-        DataSource slave = secondaryDataSource();
         //设置默认数据源
         dynamicDataSource.setDefaultTargetDataSource(master);
         //配置多数据源
         Map<Object, Object> map = new HashMap<>();
         // key需要跟ThreadLocal中的值对应
         map.put(DataSourceType.Master.getName(), master);
-        map.put(DataSourceType.Slave.getName(), slave);
+        map.put(DataSourceType.Slave.getName(), secondaryDataSource());
+        map.put(DataSourceType.ITUNESDB.getName(), iTunesDataSource());
         dynamicDataSource.setTargetDataSources(map);
         return dynamicDataSource;
     }
-
 
     /**
      * 使用连接池

@@ -12,7 +12,12 @@ public enum DataSourceType {
     /**
      * 第二个数据库
      * */
-    Slave("slave");
+    Slave("slave"),
+
+    /**
+     * iTunesDb
+     * */
+    ITUNESDB("iTunes");
 
     private String name;
 

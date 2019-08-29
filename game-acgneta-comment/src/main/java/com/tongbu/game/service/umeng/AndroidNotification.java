@@ -2,9 +2,7 @@ package com.tongbu.game.service.umeng;
 
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author jokin
@@ -14,17 +12,17 @@ public class AndroidNotification extends UmengNotification {
     /**
      * Keys can be set in the payload level
      * */
-    protected static final HashSet<String> PAYLOAD_KEYS = new HashSet<>(Arrays.asList("display_type"));
+    private static final HashSet<String> PAYLOAD_KEYS = new HashSet<>(Collections.singleton("display_type"));
 
     /**
      * Keys can be set in the body level
      * */
-    protected static final HashSet<String> BODY_KEYS = new HashSet<>(Arrays.asList("ticker", "title", "text", "builder_id", "icon", "largeIcon", "img", "play_vibrate", "play_lights", "play_sound",
+    private static final HashSet<String> BODY_KEYS = new HashSet<>(Arrays.asList("ticker", "title", "text", "builder_id", "icon", "largeIcon", "img", "play_vibrate", "play_lights", "play_sound",
             "sound", "after_open", "url", "activity", "custom"));
 
     @Override
     public boolean setPredefinedKeyValue(String key, Object value) throws Exception {
-        if (ROOT_KEYS.contains(key)) {
+        if (getRootKeys().contains(key)) {
             // This key should be in the root level
             rootJson.put(key, value);
         } else if (PAYLOAD_KEYS.contains(key)) {
@@ -56,7 +54,7 @@ public class AndroidNotification extends UmengNotification {
                 payloadJson.put("body", bodyJson);
             }
             bodyJson.put(key, value);
-        } else if (POLICY_KEYS.contains(key)) {
+        } else if (getPolicyKeys().contains(key)) {
             // This key should be in the body level
             JSONObject policyJson = null;
             if (rootJson.containsKey("policy")) {

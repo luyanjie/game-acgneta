@@ -23,16 +23,24 @@ public abstract class UmengNotification {
     /**
      * Keys can be set in the root level：发送基本信息
      * */
-    protected static final HashSet<String> ROOT_KEYS = new HashSet<String>(Arrays.asList(
+    private static final HashSet<String> ROOT_KEYS = new HashSet<>(Arrays.asList(
             "appkey", "timestamp", "type", "device_tokens", "alias", "alias_type", "file_id",
-            "filter", "production_mode", "feedback", "description", "thirdparty_id"));
+            "filter", "production_mode", "feedback", "description", "thirdparty_id","mi_activity","mipush"));
 
     /**
      * Keys can be set in the policy level: 发送策略
      * */
-    protected static final HashSet<String> POLICY_KEYS = new HashSet<String>(Arrays.asList(
+    private static final HashSet<String> POLICY_KEYS = new HashSet<>(Arrays.asList(
             "start_time", "expire_time", "max_send_num"
     ));
+
+    public static HashSet<String> getRootKeys() {
+        return ROOT_KEYS;
+    }
+
+    public static HashSet<String> getPolicyKeys() {
+        return POLICY_KEYS;
+    }
 
     /**
      * 抽象方法属性添加
@@ -100,4 +108,6 @@ public abstract class UmengNotification {
     public void setMaxSendNum(Integer num) throws Exception {
         setPredefinedKeyValue("max_send_num", num);
     }
+
+
 }

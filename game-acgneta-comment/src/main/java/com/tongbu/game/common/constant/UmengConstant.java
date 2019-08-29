@@ -1,7 +1,5 @@
 package com.tongbu.game.common.constant;
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.util.HashMap;
 
 /**
@@ -14,7 +12,7 @@ import java.util.HashMap;
  *
  */
 public class UmengConstant {
-    public class Android{
+    public static class Android{
         /**
          * acgneta Android 包名
          * */
@@ -36,7 +34,7 @@ public class UmengConstant {
         public static final String PUSH_ICON = "http://im5.acgneta.com/acgneta/umeng/push/ic_notify_logo.png";
     }
 
-    public class IOS{
+    public static class IOS{
         /**
          * acgneta Android 包名
          * */
@@ -55,11 +53,32 @@ public class UmengConstant {
     public static final String CUSTOMZIED_FIELD_TYPE_SOURCE = "typeSource";
 
     public static final String TITLE = "source";
-    public static HashMap<String,String> UmengTitle = new HashMap<>();
+
+    private static HashMap<String,String> umengTitle = new HashMap<>();
+
+    private static HashMap<Integer,String> umengDescription = new HashMap<>();
+
+
+    public static HashMap<String,String> getUmengTitle(){
+        return umengTitle;
+    }
+
+    public static HashMap<Integer,String> getUmengDescription(){
+        return umengDescription;
+    }
 
     static {
-        UmengTitle.put("source1","获得一个优评(ง •_•)ง");
-        UmengTitle.put("source2","有人赞了你的评论(ง •_•)ง");
-        UmengTitle.put("source3","有小伙伴回复了你的评论(ง •_•)ง");
+        umengTitle.put("source1","你获得了一个优评~");
+        // 动画的
+        umengTitle.put("source2","有小伙伴赞了你");
+        umengTitle.put("source3","有小伙伴回复了你");
+
+        // 问答的
+        /*umengTitle.put("source22","有小伙伴赞了你的评论");
+        umengTitle.put("source23","有小伙伴回答了你的问题");*/
+
+        umengDescription.put(1,"系统消息");
+        umengDescription.put(2,"点赞");
+        umengDescription.put(3,"新的回复");
     }
 }

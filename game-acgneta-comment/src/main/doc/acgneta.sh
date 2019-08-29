@@ -29,7 +29,6 @@ case "$1" in
         kill `cat $SERVICE_DIR/$PID`
         rm -rf $SERVICE_DIR/$PID
         echo "=== stop $SERVICE_NAME"
-
         sleep 5
         ##
         ## edu-service-aa.jar
@@ -43,19 +42,17 @@ case "$1" in
             kill -9 $P_ID
         fi
         ;;
-
     restart)
-        $0 stop
+        sh $0 stop
         sleep 2
-        $0 start
+        sh $0 start
         echo "=== restart $SERVICE_NAME"
         ;;
 
     *)
-        ## restart
-        $0 stop
-        sleep 2
-        $0 start
+        echo "****************"
+        echo "no command"
+        echo "****************"
         ;;
 
 esac
